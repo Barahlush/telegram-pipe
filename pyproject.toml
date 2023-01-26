@@ -9,7 +9,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
-python = "^3.10.6"
+python = "^3.10"
 
 [tool.poetry.dev-dependencies]
 blue = "*"
@@ -54,7 +54,7 @@ select = [
     "W",
 ]
 ignore = ["A003"]
-target-version = "py3106"
+target-version = "py310"
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401"]
