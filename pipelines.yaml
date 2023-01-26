@@ -1,0 +1,29 @@
+pipes:
+  - name: Job Extractor
+    sources:
+      - "@zarubezhom_jobs"
+      - "@pythonrabota"
+      - "@ru_pythonjobs"
+      - "@sns_jobs_feed"
+      - "@Remoteit"
+      - "@young_relocate"
+      - "@remotejobss"
+      - "@g_jobbot"
+      - "@myjobit"
+      - "@datakz"
+      - "@vacancy_cs"
+      - "@hrlunapark"
+      - "@ml_jobs_kz"
+      - "@datasciencejobs"
+      - "@seohr"
+      - "@devaller"
+      - "@jobs_abroad"
+      - "@newhr"
+      - "@gamedevjob"
+      - "@remotedevjobs"
+
+    destinations:
+      - -875236302
+    filters:
+      - job_filter
+  

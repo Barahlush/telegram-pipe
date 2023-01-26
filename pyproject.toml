@@ -3,6 +3,9 @@ name = "Telegram Pipe"
 version = "0.1.0"
 description = ""
 authors = ["Barahlush <baraltiva@gmail.com>"]
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.20.2"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -10,6 +13,13 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+pyrogram = "^2.0.97"
+python-dotenv = "^0.21.1"
+pyyaml = "^6.0"
+types-pyyaml = "^6.0.12.3"
+loguru = "^0.6.0"
+tgcrypto = "^1.2.5"
+uvloop = "^0.17.0"
 
 [tool.poetry.dev-dependencies]
 blue = "*"
@@ -28,6 +38,7 @@ filterwarnings = ["ignore::DeprecationWarning"]
 [tool.mypy]
 ignore_missing_imports = true
 disallow_untyped_defs = true
+strict = true
 
 [tool.ruff]
 line-length = 79

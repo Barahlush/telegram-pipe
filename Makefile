@@ -22,3 +22,6 @@ format:
 
 install_hooks:
 	@ scripts/install_hooks.sh
+
+build:
+	:
