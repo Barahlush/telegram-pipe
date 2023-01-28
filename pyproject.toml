@@ -3,8 +3,13 @@ name = "Telegram Pipe"
 version = "0.1.0"
 description = ""
 authors = ["Barahlush <baraltiva@gmail.com>"]
+packages = [
+    { include = "telegram_pipe"}
+]
+
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.20.2"
+
 
 
 [build-system]

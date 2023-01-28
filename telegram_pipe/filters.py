@@ -1,31 +1,28 @@
-from typing import Any
-
-from pyrogram import filters
-from pyrogram.client import Client
+from telegram_pipe.filter_utils import CustomFilter
 
 
-def word_lookup_filter(
-    positive: str | list[str], negative: str | list[str]
-) -> filters.Filter:
-    """Filter messages that contain a word from a list of positive words and
-    don't contain a word from a list of negative words.
-    """
-    if isinstance(positive, str):
-        positive = [positive]
-    if isinstance(negative, str):
-        negative = [negative]
+class WordLookupFilter(CustomFilter):
+    def __init__(self, positive: list[str], negative: list[str]):
+        """Filters messages that contain a word from a list of positive words
+        and don't contain a word from a list of negative words.
 
-    async def func(_: filters.Filter, __: Client, message: Any) -> bool:
-        if not message.text:
-            return False
-        text = message.text.lower()
-        return all(word in text for word in positive) and not any(
-            word in text for word in negative
+        Args:
+            positive (str | list[str]): List of words that must be in the
+                message.
+            negative (str | list[str]): List of words that must not be in the
+                message.
+        """
+        self.positive = positive
+        self.negative = negative
+
+    def func(self, text: str) -> bool:
+        text = text.lower()
+        return all(word in text for word in self.positive) and not any(
+            word in text for word in self.negative
         )
 
-    return filters.create(func)
 
-
+# Dict of filters that can be used in the pipelines.yaml file
 pipeline_filters = {
-    'job_filter': word_lookup_filter('python', 'senior'),
+    'job_filter': WordLookupFilter(positive=['python'], negative=['senior']),
 }

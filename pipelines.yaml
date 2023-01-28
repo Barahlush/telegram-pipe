@@ -1,4 +1,4 @@
-pipes:
+pipelines:
   - name: Job Extractor
     sources:
       - "@zarubezhom_jobs"
@@ -21,6 +21,8 @@ pipes:
       - "@newhr"
       - "@gamedevjob"
       - "@remotedevjobs"
+      - -401538945
+      - "@rwork_python"
 
     destinations:
       - -875236302

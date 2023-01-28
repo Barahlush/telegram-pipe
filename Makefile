@@ -1,9 +1,5 @@
 SHELL := /bin/bash -O globstar
 
-test:
-	pytest --cov-report term-missing --cov-report html --cov-branch \
-	       --cov telegram_pipe/
-
 lint:
 	@echo
 	ruff .
@@ -19,9 +15,11 @@ format:
 	ruff --silent --exit-zero --fix .
 	blue .
 
+install:
+	poetry install
+
+run:
+	poetry run python3 telegram_pipe/client.py
 
 install_hooks:
 	@ scripts/install_hooks.sh
-
-build:
-	:

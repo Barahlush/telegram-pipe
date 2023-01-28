@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from functools import reduce
 from operator import and_
-from typing import Awaitable, Callable, cast
+from typing import Awaitable, Callable, Sequence, cast
 
 from loguru import logger
 from pyrogram.client import Client
@@ -25,7 +25,7 @@ class Pipeline:
 
     sources: list[str | int]
     destinations: list[str | int]
-    filters: list[Filter]
+    filters: Sequence[Filter]
 
     def get_handler(self) -> Callable[[Client, Message], Awaitable[None]]:
         """Generate the handler for the pipeline.

@@ -1,17 +1,23 @@
 import uvloop
-from config import API_HASH, API_ID, pipelines_list
-from filters import pipeline_filters
+import yaml
 from loguru import logger
-from models import Pipeline
 from pyrogram.client import Client
 from pyrogram.handlers.message_handler import MessageHandler
+
+from telegram_pipe.config import API_HASH, API_ID, PIPELINES_FILEPATH
+from telegram_pipe.filters import pipeline_filters
+from telegram_pipe.pipeline import Pipeline
 
 uvloop.install()
 app = Client('my_account', int(API_ID), API_HASH)
 
+
+# Get the pipelines from the yaml file
+with open(PIPELINES_FILEPATH) as f:
+    pipelines_list = yaml.safe_load(f)['pipelines']
+
 pipelines: list[Pipeline] = []
 
-# Parse the pipelines from the pipelines.yaml file
 for pipeline in pipelines_list:
     filters_ = [
         pipeline_filters[filter_name] for filter_name in pipeline['filters']
