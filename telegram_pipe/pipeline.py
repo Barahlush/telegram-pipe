@@ -26,6 +26,9 @@ class Pipeline:
     sources: list[str | int]
     destinations: list[str | int]
     filters: Sequence[Filter]
+    sender: Client
+    listener: Client
+    use_listener_on_fail: bool
 
     def get_handler(self) -> Callable[[Client, Message], Awaitable[None]]:
         """Generate the handler for the pipeline.
@@ -44,7 +47,34 @@ class Pipeline:
                 chat_name=message.chat.title,
             )
             for destination in self.destinations:
-                await message.forward(destination)
+                try:
+                    await self.sender.forward_messages(
+                        chat_id=destination,
+                        from_chat_id=message.chat.id,
+                        message_ids=message.id,
+                    )
+                except Exception:
+                    logger.exception(
+                        'Error with sender forwarding message '
+                        '"{message_text}" from "{chat_name}" '
+                        'to "{destination}"',
+                        message_text=message.text,
+                        chat_name=message.chat.title,
+                        destination=destination,
+                    )
+                    if self.use_listener_on_fail:
+                        try:
+                            logger.info('Forwarding with listener')
+                            await message.forward(destination)
+                        except Exception:
+                            logger.exception(
+                                'Error with listener forwarding message '
+                                '"{message_text}" from "{chat_name}" '
+                                'to "{destination}"',
+                                message_text=message.text,
+                                chat_name=message.chat.title,
+                                destination=destination,
+                            )
 
         return handler
 

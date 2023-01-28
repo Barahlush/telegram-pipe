@@ -23,6 +23,6 @@ class WordLookupFilter(CustomFilter):
 
 
 # Dict of filters that can be used in the pipelines.yaml file
-pipeline_filters = {
+available_filters = {
     'job_filter': WordLookupFilter(positive=['python'], negative=['senior']),
 }

@@ -29,3 +29,6 @@ pipelines:
     filters:
       - job_filter
   
+    listener: "me"
+    sender: "bot"
+    use_listener_on_fail: True
